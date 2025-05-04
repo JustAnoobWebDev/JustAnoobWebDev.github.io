@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+ <html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <title>Tony's 3d printing Business</title>
+        
+        <style>
+            
+        img { background-color: #ffffff; color: #0000ff; }
+        input { background-color: #ecfae6; color: #0000ff; }
+        body { background-color: #b6f29d; color: #000000; }
+        h1 { background-color: #00ffa8; color: #000000; border: 1px solid black; }
+        h2 { background-color: #aeaed4; color: green; border: 1px solid black; }
+        .Turtle {
+            border: 2px solid black;
+            background-color: red;
+            color: black;
+            margin: 20px;
+            padding: 20px;
+            text-align: center;
+        }
+        .Turtle2 {
+            border: 1px solid black;
+            background-color: rgba(102, 218, 54, 0.46);
+            color: black;
+            margin: 20px;
+            padding: 20px;
+            text-align: center;
+        }
+        .centering { text-align: center; }
+        .inverted_thingy { background-color: black; color: white; padding: 25px; text-align: center; }
+
+        /* Navigation Menu */
+        ul {
+            list-style-type: none;
+            margin: 0;
+            padding: 0;
+            background-color: grey;
+            display: flex;  /* Flexbox layout */
+        }
+
+        li {
+            position: relative; /* For dropdown positioning */
+        }
+        li {
+                float: left;
+                border-right: 1px solid black;
+            }
+
+        li a {
+            display: block;
+            color: white;
+            padding: 14px 16px;
+            text-decoration: none;
+            text-align: center;
+        }
+
+        li a:hover {
+            background-color: black;
+        }
+
+        button:hover { background-color: #898786; }
+        
+        .design-itemHOVER:hover {
+            transform: translateY(-10px);
+            transition: transform 0.2s;
+        }
+
+        /* Cart Section (Initially hidden) */
+        .dropdown {
+            position: relative;
+        }
+
+        /* Initially hide the dropdown content */
+        .dropdown-content {
+            display: none;
+            position: absolute;
+            background-color: #f9f9f9;
+            min-width: 160px;
+            box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.2);
+            z-index: 1;
+        }
+
+        /* Style for each link in the dropdown */
+        .dropdown-content a {
+            color: black;
+            padding: 12px 16px;
+            text-decoration: none;
+            display: block;
+            text-align: left;
+        }
+
+        /* Change color on hover in dropdown */
+        .dropdown-content a:hover {
+            background-color: #ddd;
+        }
+
+        /* Show the dropdown content when hovering over the dropdown button */
+        .dropdown:hover .dropdown-content {
+            display: block;
+        }
+
+        /* Style for the dropdown button */
+        .dropbtn {
+            background-color: grey;
+            color: white;
+            padding: 14px 16px;
+            font-size: 16px;
+            border: none;
+            cursor: pointer;
+        }
+
+        .dropbtn:hover {
+            background-color: black;
+        }
+    </style>
+    </head>
+    
+    <body>
+        
+    <header>
+        <h1>Tony's 3d printing business</h1>
+    </header>
+        
+    <ul>
+        <li><a class="active" href="index.html">About Us</a></li>
+        <li><a class="active" href="Home_page.html">Home</a></li>
+        <li class="dropdown">
+            <button class="dropbtn">Services</button>
+            <div class="dropdown-content">
+                <a href="Services.html">V.I.P</a>
+                <a href="Services.html">Free BUT 0 Effort</a>
+            </div>
+        </li>
+        <li><a href="Contact.html">Contacts</a></li>
+    </ul> 
+    
+    <div>
+        <h2 id="toilet"></h2>
+        <div class="design-itemHOVER">
+            <div class = "Turtle2">
+                This is the history of Tony's 3d printing Business:<br>
+                He made a few sales.
+                However, the 3d printer stopped working for
+                <b>5 months</b>. 
+                But the designs are cool.
+                You should buy them.
+                And yes, the 3d printer works now.*
+            </div>
+        </div>
+    </div>
+    <footer>
+        <small><i>Copyright &copy; Tony's 3d printing Business
+        </i></small><br>
+        <small><i>
+        </i>*totally</small>
+    </footer>
+        <script src="indes.js"></script>
+        
+    </body>
+</html>

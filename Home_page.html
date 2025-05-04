@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <title>To call Tony:</title>
+    <style>
+        /* Basic Styling */
+        img { background-color: #ffffff; color: #0000ff; }
+        input { background-color: #ecfae6; color: #0000ff; }
+        body { background-color: #b6f29d; color: #000000; }
+        h1 { background-color: #00ffa8; color: #000000; }
+        h2 { background-color: #aeaed4; color: green; }
+        .Turtle {
+            border: 2px solid black;
+            background-color: red;
+            color: black;
+            margin: 20px;
+            padding: 20px;
+            text-align: center;
+        }
+        .Turtle2 {
+            border: 1px solid black;
+            background-color: rgba(102, 218, 54, 0.46);
+            color: black;
+            margin: 20px;
+            padding: 20px;
+            text-align: center;
+        }
+        .centering { text-align: center; }
+        .inverted_thingy { background-color: black; color: white; padding: 25px; text-align: center; }
+
+        /* Navigation Menu */
+        ul {
+            list-style-type: none;
+            margin: 0;
+            padding: 0;
+            background-color: grey;
+            display: flex;  /* Flexbox layout */
+        }
+
+        li {
+            position: relative; /* For dropdown positioning */
+        }
+        li {
+                float: left;
+                border-right: 1px solid black;
+            }
+
+        li a {
+            display: block;
+            color: white;
+            padding: 14px 16px;
+            text-decoration: none;
+            text-align: center;
+        }
+
+        li a:hover {
+            background-color: black;
+        }
+
+        button:hover { background-color: #898786; }
+        
+        .design-itemHOVER:hover {
+            transform: translateY(-10px);
+            transition: transform 0.2s;
+        }
+
+        /* Cart Section (Initially hidden) */
+        .dropdown {
+            position: relative;
+        }
+
+        /* Initially hide the dropdown content */
+        .dropdown-content {
+            display: none;
+            position: absolute;
+            background-color: #f9f9f9;
+            min-width: 160px;
+            box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.2);
+            z-index: 1;
+        }
+
+        /* Style for each link in the dropdown */
+        .dropdown-content a {
+            color: black;
+            padding: 12px 16px;
+            text-decoration: none;
+            display: block;
+            text-align: left;
+        }
+
+        /* Change color on hover in dropdown */
+        .dropdown-content a:hover {
+            background-color: #ddd;
+        }
+
+        /* Show the dropdown content when hovering over the dropdown button */
+        .dropdown:hover .dropdown-content {
+            display: block;
+        }
+
+        /* Style for the dropdown button */
+        .dropbtn {
+            background-color: grey;
+            color: white;
+            padding: 14px 16px;
+            font-size: 16px;
+            border: none;
+            cursor: pointer;
+        }
+
+        .dropbtn:hover {
+            background-color: black;
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation Menu -->
+    <ul>
+        <li><a class="active" href="index.html">About Us</a></li>
+        <li><a class="active" href="Home_page.html">Home</a></li>
+        <li class="dropdown">
+            <button class="dropbtn">Services</button>
+            <div class="dropdown-content">
+                <a href="Services.html">V.I.P</a>
+                <a href="Services.html">Free BUT 0 Effort</a>
+            </div>
+        </li>
+        <li><a href="Contact.html">Contacts</a></li>
+    </ul>
+
+    <!-- Home Page Content -->
+    <h1 class="Turtle">Home Page</h1>
+    <p class="centering">As this is a 3D printing shop, there are designs.<br>
+    In fact, we have the goofiest designs for you consumers to purchase! :)</p>
+    
+    <p class="centering"><b>Designs:</b><br></p>
+    
+    <!-- Design Items -->
+    <div class="design-itemHOVER">
+        <div class="Turtle2">
+            <b>DAshrek</b><br>
+            <img src="https://i.imgflip.com/698fuj.png" width="150"><br>
+            Price: $2.50<br>
+            Quantity: <input type="number" id="qty1" value="1" min="1"><br>
+            <button onclick="addToCart('DAshrek', 2.50, document.getElementById('qty1').value)">Add to Cart</button><br>
+            <button onclick="alert('Sorry, but your order of ' + (document.getElementById('qty1').value || 0) + ' DAshrek(s) has failed. GET SCAMMED')">Submit Purchase</button>
+        </div>
+    </div>
+
+    <!-- NOrp Design -->
+    <div class="design-itemHOVER">
+        <div class="Turtle2">
+            <b>NOrp</b><br>
+            <img src="https://upload.wikimedia.org/wikipedia/commons/7/7c/Kilroy_was_here.svg" width="150"><br>
+            Price: $1.59<br>
+            Quantity: <input type="number" id="qty2" value="1" min="1"><br>
+            <button onclick="addToCart('NOrp', 1.59, document.getElementById('qty2').value)">Add to Cart</button><br>
+            <button onclick="alert('Sorry, but your order of ' + (document.getElementById('qty2').value || 0) + ' NOrp(s) has failed. GET SCAMMED')">Submit Purchase</button>
+        </div>
+    </div>
+
+    <!-- View Cart Button -->
+    <button onclick="toggleCart()">View Cart</button>
+
+    <!-- Cart Section -->
+    <div id="cartDropdown">
+        <h3>Your Cart:</h3>
+        <ul id="cartList"></ul>
+        <p id="totalPrice">Total: $0.00</p>
+        <button onclick="purchaseItems()">Purchase</button>
+    </div>
+
+    <script>
+        let cart = [];
+
+        function addToCart(name, price, quantity) {
+            quantity = parseInt(quantity);
+            for (let i = 0; i < quantity; i++) {
+                cart.push({ name: name, price: price });
+            }
+            alert(name + " added to cart.");
+        }
+
+        function toggleCart() {
+            const cartDiv = document.getElementById('cartDropdown');
+            if (cartDiv.style.display === 'none' || cartDiv.style.display === '') {
+                cartDiv.style.display = 'block';
+                displayCart();
+            } else {
+                cartDiv.style.display = 'none';
+            }
+        }
+
+        function displayCart() {
+            const cartList = document.getElementById('cartList');
+            cartList.innerHTML = '';
+            let total = 0;
+
+            const grouped = {};
+
+            for (let item of cart) {
+                if (grouped[item.name]) {
+                    grouped[item.name].count += 1;
+                    grouped[item.name].total += item.price;
+                } else {
+                    grouped[item.name] = {
+                        price: item.price,
+                        count: 1,
+                        total: item.price
+                    };
+                }
+            }
+
+            for (let name in grouped) {
+                const li = document.createElement('li');
+                li.textContent = `${name} x${grouped[name].count} - $${grouped[name].total.toFixed(2)}`;
+
+                const btn = document.createElement('button');
+                btn.textContent = "Remove One";
+                btn.onclick = function () { removeOne(name); };
+
+                li.appendChild(btn);
+                cartList.appendChild(li);
+                total += grouped[name].total;
+            }
+
+            document.getElementById('totalPrice').textContent = `Total: $${total.toFixed(2)}`;
+        }
+
+        function removeOne(name) {
+            for (let i = 0; i < cart.length; i++) {
+                if (cart[i].name === name) {
+                    cart.splice(i, 1);
+                    break;
+                }
+            }
+            displayCart();
+        }
+
+        function purchaseItems() {
+            if (cart.length === 0) {
+                alert("Cart is empty.");
+                return;
+            }
+            alert("Thanks for your money! The order failed, no refunds :)");
+            cart = [];
+            displayCart();
+            toggleCart();
+        }
+    </script>
+</body>
+</html>
