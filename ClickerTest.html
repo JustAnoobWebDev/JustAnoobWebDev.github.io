@@ -8,20 +8,27 @@
             text-align: center;
             margin-top: 100px;
         }
+        button:hover { background-color: #898786; }
     </style>
 </head>
 <body>
     <h1>Monkey Business 🐒 (beta)</h1>
-    <button onclick="Upgrade()">Worker Monkey (Cost: <span id="priceDisplay">20</span>)</button>
-    
+    <button onclick="Upgrade(1, 1)" title="Adds +1 bananas per second. Cost increases by 5.">
+        Worker Monkey 🐒 (Cost: <span id="priceDisplay1">20</span>)
+    </button>
+
+    <button onclick="Upgrade(4, 2)" title="Adds +4 bananas per second. Cost increases by 10.">
+        Banana Miner ⛏️🐒⛑️ (Cost: <span id="priceDisplay2">45</span>)
+    </button>  
+
     <div class="center">
         <button onclick="clicks()">Click 4 Banana</button>
         <p id="BANANANANANA">Bananas: 0</p>
     </div>
 
     <!-- MONKES -->
-    <b>Slaves</b> --- I mean --- EMPLOYEES!!
-    <div id="monkeyZone"></div>
+    <b>Slaves</b> -- I mean EMPLOYEES:
+    <div id="monkeys"></div>
 
     <script>
         var Bananas = 0;
@@ -29,6 +36,7 @@
         var UpgradeState = false;
         var BPS = 0;
         var UpgradePrice = 20;
+        var UpgradePrice2 = 45;
         var MONKEY = [];
 
         // Function for clicking and earning bananas
@@ -38,20 +46,28 @@
         }
 
         // Function for upgrading and adding monkey emojis
-        function Upgrade() {
-            if (Bananas >= UpgradePrice) {
+        function Upgrade(bpsAmount, Utype) {
+            // if else kinda thing. ckecks which upgrade it is
+            let price = Utype === 1 ? UpgradePrice : UpgradePrice2;
+            if (Bananas >= price) {
                 // Deduct bananas for the upgrade
-                Bananas -= UpgradePrice;
-                UpgradePrice += 5;
-                BPS += 1;
+                Bananas -= price;
+                if (Utype === 1) {
+                    UpgradePrice += 5;
+                    // Add a monkey emoji to the array
+                    MONKEY.push(" [ 🐒 ] ");
+                } else {
+                    UpgradePrice2 += 10
+                    // Add a monkey emoji to the array
+                    MONKEY.push(" [ ⛏️🐒⛑️ ] ");
+                }
+                UpdateCurrency();
+                BPS += bpsAmount;
                 UpdateCurrency();
                 UpdatePriceButton();
                 alert("Successfully bought!");
-
-                // Add a monkey emoji to the array
-                MONKEY.push("🐒");
-                // Display all monkeys in the monkeyZone
-                document.getElementById("monkeyZone").textContent = MONKEY.join(" ");
+                // Display all monkeys in the monkeys
+                document.getElementById("monkeys").textContent = MONKEY.join(" ");
 
                 // Start the bananas per second effect only once
                 if (!UpgradeState) {
@@ -59,7 +75,12 @@
                     UpgradeState = true;
                 }
             } else {
-                alert("You need " + UpgradePrice + " bananas to upgrade.");
+                if (Utype === 1) {
+                    alert("You need " + UpgradePrice + " bannanas to upgrade")
+                } else {
+                    alert("You need " + UpgradePrice2 + " bannanas to upgrade")
+                }
+
             }
         }
 
@@ -73,10 +94,11 @@
         function UpdateCurrency() {
             document.getElementById("BANANANANANA").textContent = "Bananas: " + Bananas;
         }
-
+        
         // Update the upgrade price on the button
         function UpdatePriceButton() {
-            document.getElementById("priceDisplay").textContent = UpgradePrice;
+            document.getElementById("priceDisplay1").textContent = UpgradePrice;
+            document.getElementById("priceDisplay2").textContent = UpgradePrice2;
         }
     </script>
 </body>
