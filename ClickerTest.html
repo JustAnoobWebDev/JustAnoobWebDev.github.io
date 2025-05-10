@@ -9,20 +9,63 @@
             margin-top: 100px;
         }
         button:hover { background-color: #898786; }
+        
+        /* Dropdown Styles */
+
+        /* Tooltip styles */
+        .tooltip {
+            position: relative;
+            display: inline-block;
+            cursor: pointer;
+        }
+
+        /* Tooltip text (hidden by default) */
+        .tooltip .tooltiptext {
+            visibility: hidden;
+            width: 220px;
+            background-color: #6c757d;
+            color: #fff;
+            text-align: center;
+            border-radius: 5px;
+            padding: 5px;
+            position: absolute;
+            z-index: 1;
+            bottom: 125%; /* Position above the button */
+            left: 50%;
+            margin-left: -110px; /* Center the tooltip */
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+
+        /* Show the tooltip text when hovering over the tooltip element */
+        .tooltip:hover .tooltiptext {
+            visibility: visible;
+            opacity: 1;
+        }
     </style>
 </head>
 <body>
-    <h1>Monkey Business 🐒 (beta)</h1>
-    <button onclick="Upgrade(1, 1)" title="Adds +1 bananas per second. Cost increases by 5.">
-        Worker Monkey 🐒 (Cost: <span id="priceDisplay1">20</span>)
-    </button>
 
-    <button onclick="Upgrade(4, 2)" title="Adds +4 bananas per second. Cost increases by 10.">
-        Banana Miner ⛏️🐒⛑️ (Cost: <span id="priceDisplay2">45</span>)
-    </button>  
+
+    <h1>Monkey Business 🐒 (beta)</h1>
+    
+    <!-- Upgrade Buttons with Custom Tooltips -->
+    <div class="tooltip">
+        <button onclick="Upgrade(1, 1)">
+            Worker Monkey 🐒 (Cost: <span id="priceDisplay1">20</span>)
+        </button>
+        <span class="tooltiptext">MONKEYYYYY!!!! +1 BPS</span>
+    </div>
+
+    <div class="tooltip">
+        <button onclick="Upgrade(5, 2)">
+            Banana Miner ⛏️🐒⛑️ (Cost: <span id="priceDisplay2">45</span>)
+        </button>
+        <span class="tooltiptext">Mines fresh bananas from the famous banana mines. +5 BPS</span>
+    </div>
 
     <div class="center">
-        <button onclick="clicks()">Click 4 Banana</button>
+        <button onclick="clicks()">Click 4 Banana 🍌</button>
         <p id="BANANANANANA">Bananas: 0</p>
     </div>
 
@@ -47,18 +90,14 @@
 
         // Function for upgrading and adding monkey emojis
         function Upgrade(bpsAmount, Utype) {
-            // if else kinda thing. ckecks which upgrade it is
             let price = Utype === 1 ? UpgradePrice : UpgradePrice2;
             if (Bananas >= price) {
-                // Deduct bananas for the upgrade
                 Bananas -= price;
                 if (Utype === 1) {
                     UpgradePrice += 5;
-                    // Add a monkey emoji to the array
                     MONKEY.push(" [ 🐒 ] ");
                 } else {
-                    UpgradePrice2 += 10
-                    // Add a monkey emoji to the array
+                    UpgradePrice2 += 10;
                     MONKEY.push(" [ ⛏️🐒⛑️ ] ");
                 }
                 UpdateCurrency();
@@ -66,21 +105,14 @@
                 UpdateCurrency();
                 UpdatePriceButton();
                 alert("Successfully bought!");
-                // Display all monkeys in the monkeys
                 document.getElementById("monkeys").textContent = MONKEY.join(" ");
-
-                // Start the bananas per second effect only once
+                
                 if (!UpgradeState) {
                     cooldown = setInterval(UpgradeEffect, 1000);
                     UpgradeState = true;
                 }
             } else {
-                if (Utype === 1) {
-                    alert("You need " + UpgradePrice + " bannanas to upgrade")
-                } else {
-                    alert("You need " + UpgradePrice2 + " bannanas to upgrade")
-                }
-
+                alert("Not enough bananas!");
             }
         }
 
