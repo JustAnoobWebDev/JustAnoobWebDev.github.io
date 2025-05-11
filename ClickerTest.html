@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+    <html lang="en">
 <head>
     <meta charset="UTF-8" />
     <title>Banana Clicker</title>
@@ -47,32 +47,48 @@
 <body>
 
 
-    <h1>Monkey Business 🐒 (beta)</h1>
+    <h1>Monkey Business 🐒 (beta) WORK ON UPGRADE EFFECT. DELETE THIS LATER!!</h1>
     
-    <!-- Upgrade Buttons with Custom Tooltips -->
+    <!-- MONKEY Upgrade Buttons with Custom Tooltips -->
+    alive bois for hire:<br>
     <div class="tooltip">
-        <button onclick="Upgrade(1, 1)">
-            Worker Monkey 🐒 (Cost: <span id="priceDisplay1">20</span>)
+        <button onclick="AliveBoi(1, 1)">
+            Worker Monkey 🐒 (Cost: <span id="priceDisplay1">20</span>)<br><br>
         </button>
         <span class="tooltiptext">MONKEYYYYY!!!! +1 BPS</span>
     </div>
-
+    
     <div class="tooltip">
-        <button onclick="Upgrade(5, 2)">
-            Banana Miner ⛏️🐒⛑️ (Cost: <span id="priceDisplay2">45</span>)
+        <button onclick="AliveBoi(5, 2)">
+            Banana Miner ⛏️🐒⛑️ (Cost: <span id="priceDisplay2">45</span>)<br><br>
         </button>
         <span class="tooltiptext">Mines fresh bananas from the famous banana mines. +5 BPS</span>
     </div>
-
+    <!-- Border -->
+    <br>___________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________<br>
+    Upgrades:<br>
+    <div class="tooltip">
+        <button id = "clickerUpgradeBtn" onclick="ClickerUpgrade()">
+            Effecient Finger 👆 (Cost: <span id="priceDisplay3">60</span>)<br><br>
+        </button>
+        <span class="tooltiptext">U fingy is COOOL!!! +2 bannanas when u click</span>
+    </div>
+    
+    <div class="tooltip">   
+        <button id = "AlvBoiUpgrade" onclick="UpgradeWM()">
+            Determined Worker 🗿 (Cost: <span id="priceDisplay4">75</span>)<br><br>
+        </button>
+        <span class="tooltiptext">"It's about drive, it's about power" - The ROck🗿. Worker MOnkeys give 3 BPS(doesn't work yet)</span> 
+    </div>
     <div class="center">
         <button onclick="clicks()">Click 4 Banana 🍌</button>
         <p id="BANANANANANA">Bananas: 0</p>
     </div>
-
     <!-- MONKES -->
-    <b>Slaves</b> -- I mean EMPLOYEES:
-    <div id="monkeys"></div>
-
+    <b>Slaves</b> -- I mean EMPLOYEES:<br>
+    <div id="monkeys"></div><br>
+    Upgrades:
+    <div id="clickerUpgrade"></div><br>
     <script>
         var Bananas = 0;
         var cooldown;
@@ -80,28 +96,62 @@
         var BPS = 0;
         var UpgradePrice = 20;
         var UpgradePrice2 = 45;
+        var UpgradeCprice = 60;
         var MONKEY = [];
-
+        var upgrade = [];
+        var ClickerAmount = 1;
+        var WorkeyMonkeyBPS_output= 1;
+        var UpgradeWMprice = 75;
+        
+        function ClickerUpgrade() {
+            if (Bananas >= UpgradeCprice) {
+                Bananas -= UpgradeCprice;
+                ClickerAmount += 2;
+                UpdateCurrency();      
+                UpdatePriceButton();   
+                alert("Succesfully Bought!")
+                document.getElementById("clickerUpgradeBtn").style.display = "none";
+                upgrade.push(" [👆] ")
+                document.getElementById("clickerUpgrade").textContent = upgrade.join(" ");
+            } else {
+                alert("U need " + UpgradeCprice + " bananas to purchase")  
+            }
+        }
+        function UpgradeWM(){
+            if (Bananas >= UpgradeWMprice) {
+                Bananas -= UpgradeWMprice;
+                WorkeyMonkeyBPS_output = 3;
+                UpdateCurrency();      
+                UpdatePriceButton();
+                alert("Succesfully Bought!")
+                document.getElementById("AlvBoiUpgrade").style.display = "none";
+                upgrade.push(" [🗿] ")
+                document.getElementById("clickerUpgrade").textContent = upgrade.join(" ");
+            } else {
+                alert("U need " + UpgradeWMprice + " bananas to purchase")  
+            }
+        }
         // Function for clicking and earning bananas
         function clicks() {
-            Bananas += 1;
+            Bananas += ClickerAmount;
             UpdateCurrency();
         }
 
         // Function for upgrading and adding monkey emojis
-        function Upgrade(bpsAmount, Utype) {
+        function AliveBoi(bpsAmount, Utype) {
             let price = Utype === 1 ? UpgradePrice : UpgradePrice2;
             if (Bananas >= price) {
                 Bananas -= price;
                 if (Utype === 1) {
                     UpgradePrice += 5;
                     MONKEY.push(" [ 🐒 ] ");
+                    BPS += WorkeyMonkeyBPS_output;
                 } else {
                     UpgradePrice2 += 10;
                     MONKEY.push(" [ ⛏️🐒⛑️ ] ");
+                    BPS += bpsAmount;
                 }
                 UpdateCurrency();
-                BPS += bpsAmount;
                 UpdateCurrency();
                 UpdatePriceButton();
                 alert("Successfully bought!");
@@ -112,7 +162,11 @@
                     UpgradeState = true;
                 }
             } else {
-                alert("Not enough bananas!");
+                if (Utype === 1) {
+                    alert("You need " + UpgradePrice + " bananas to purchase");
+                } else {
+                    alert("You need " + UpgradePrice2 + " bananas to purchase");
+                }
             }
         }
 
@@ -131,6 +185,8 @@
         function UpdatePriceButton() {
             document.getElementById("priceDisplay1").textContent = UpgradePrice;
             document.getElementById("priceDisplay2").textContent = UpgradePrice2;
+            document.getElementById("priceDisplay3").textContent = UpgradeCprice;
+            document.getElementById("priceDisplay4").textContent = UpgradeWMprice;
         }
     </script>
 </body>
